@@ -53,3 +53,22 @@ plt.title("Top 2 scorers")
 plt.xlabel('Scores')
 plt.ylabel('Players')
 plt.show()     
+
+#3. 10 best bowling figures
+df['highest_wickets'] = df['best_bowling_figure'].apply(lambda x:x.split('--')[0])
+df['highest_wickets'] = df['highest_wickets'].astype(int)
+top_bowlers = df.groupby('best_bowling')['highest_wickets'].sum().sort_values(ascending=False).head(10)
+print(top_bowlers)
+# top_bowlers.plot(kind = 'barh')
+sns.barplot(x = top_bowlers.values,y =top_bowlers.index,palette='rainbow')
+plt.xlabel('Number of wickets')
+plt.ylabel('Players name')
+plt.title('Top 10 highest wicket takers')
+
+plt.show()
+
+#4. Most matches played by venue
+
+venue_count = df['venue'].value_counts()
+sns.barplot(x = venue_count.values,y = venue_count.index,palette='rainbow')
+plt.show()
